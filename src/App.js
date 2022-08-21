@@ -5,8 +5,8 @@ import Messenger from "./components/Messenger";
 function App() {
   return (
     <div className="App">
-      {/* <AppRouter /> */}
-      <Messenger />
+      <AppRouter />
+      {/* <Messenger /> */}
     </div>
   );
 }

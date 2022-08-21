@@ -3,11 +3,7 @@ import AppRouter from "../AppRouter/AppRouter";
 import "./Navbar.css";
 
 function index() {
-  return (
-    <div className="app-login">
-      <AppRouter />
-    </div>
-  );
+  return <div className="app-login"></div>;
 }
 
 export default index;
