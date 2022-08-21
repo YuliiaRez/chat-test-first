@@ -11,11 +11,10 @@ export default function ChuckAnswer(props) {
   const [answers, setAnswers] = useState([]);
   const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
 
-  useEffect(() => {
-    getChuckAnswer();
-  }, [props]); /*в зависимость поставить массив моих сообщений */
-
-  const getChuckAnswer = () => {
+  // useEffect(() => {
+  //   getChuckAnswer();
+  // }, [props]); /*в зависимость поставить массив моих сообщений */
+  setTimeout(() => {
     axios.get("https://api.chucknorris.io/jokes/random").then((response) => {
       console.log("response", response);
       setAnswer({
@@ -23,7 +22,7 @@ export default function ChuckAnswer(props) {
         answerValue: response.data.value,
       });
     });
-  };
+  }, 3000);
 
   return (
     <div className="conversation-list">

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
+
 import { auth, firestore } from "../../index";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
-const SendMessage = ({ scroll }) => {
+const SendMessage = ({ scroll, currConvers }) => {
   const [input, setInput] = useState("");
+  const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
+  const getAnswer = () => {};
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -13,11 +17,10 @@ const SendMessage = ({ scroll }) => {
     }
 
     const { uid, displayName } = auth.currentUser;
-    console.log("uid, displayname", uid, displayName);
     await addDoc(collection(firestore, "messagesDb"), {
       text: input,
       messageId: Date.now(),
-      userId: uid,
+      userId: currConvers.userId,
       timestamp: serverTimestamp(),
     });
 

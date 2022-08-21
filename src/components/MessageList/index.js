@@ -1,24 +1,24 @@
 import React, { useEffect, useState, useRef } from "react";
+import moment from "moment";
+
+import { firestore } from "../../index";
+import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
+import "./MessageList.css";
+
 import TextInput from "../TextInput";
 import Toolbar from "../Toolbar";
 import ToolbarButton from "../ToolbarButton";
 import Message from "../Message";
-import moment from "moment";
-
-import "./MessageList.css";
-
-// import SendMessage from "./SendMessage";
-import { firestore } from "../../index";
-import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import SendMessage from "../SendMessage";
+import ConversationCurrent from "../ConversationCurrent";
 
 const MessageList = (props) => {
+  const { currConvers } = props;
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
 
   useEffect(() => {
     const q = query(collection(firestore, "messagesDb"), orderBy("timestamp"));
-    console.log("q", q);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messages = [];
       querySnapshot.forEach((doc) => {
@@ -31,6 +31,7 @@ const MessageList = (props) => {
 
   return (
     <>
+      <ConversationCurrent currConvers={currConvers} />
       <div className="message-list-container">
         {messages &&
           messages.map((message) => (
@@ -38,7 +39,7 @@ const MessageList = (props) => {
           ))}
       </div>
       {/* Send Message Compoenent */}
-      <SendMessage scroll={scroll}></SendMessage>
+      <SendMessage scroll={scroll} currConvers={currConvers}></SendMessage>
       <span ref={scroll}></span>
     </>
   );
