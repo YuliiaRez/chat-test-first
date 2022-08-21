@@ -20,8 +20,8 @@ const firebaseConfig = {
 export const Context = createContext(null);
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const firestore = getFirestore(app);
+export const auth = getAuth(app);
+export const firestore = getFirestore(app);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

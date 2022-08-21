@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Context } from "../..";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import "./AppRouter.css";
+import Messenger from "../Messenger";
 
 const AppRouter = () => {
   const { auth } = useContext(Context);
@@ -31,8 +32,8 @@ const AppRouter = () => {
         </button>
       </Link>
       <Routes>
-        <Route path={"/"} element={<Chat />}></Route>
-        <Route path={"/chat"} element={<Chat />} />
+        <Route path={"/"} element={<Messenger />}></Route>
+        <Route path={"/chat"} element={<Messenger />} />
       </Routes>
     </>
   ) : (
