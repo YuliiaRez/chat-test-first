@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import axios from "axios";
-
 import { auth, firestore } from "../../index";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import axios from "axios";
 
-const SendMessage = ({ scroll, currConvers }) => {
-  const [input, setInput] = useState("");
+const SendMessage = ({ scroll }) => {
   const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
-  const getAnswer = () => {};
+  const getChuckAnswer = () => {
+    setTimeout(() => {
+      axios.get("https://api.chucknorris.io/jokes/random").then((response) => {
+        console.log("response", response.data.value);
+        setAnswer({
+          icon_url: response.data.icon_url,
+          answerValue: response.data.value,
+        });
+      });
+    }, 3000);
+  };
+
+  const [input, setInput] = useState("");
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -20,7 +30,7 @@ const SendMessage = ({ scroll, currConvers }) => {
     await addDoc(collection(firestore, "messagesDb"), {
       text: input,
       messageId: Date.now(),
-      userId: currConvers.userId,
+      userId: uid,
       timestamp: serverTimestamp(),
     });
 
@@ -29,7 +39,12 @@ const SendMessage = ({ scroll, currConvers }) => {
   };
 
   return (
-    <form onSubmit={sendMessage} /*className={style.form}*/>
+    <form
+      onSubmit={
+        sendMessage
+        // getChuckAnswer();
+      } /*className={style.form}*/
+    >
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -37,7 +52,12 @@ const SendMessage = ({ scroll, currConvers }) => {
         type="text"
         placeholder="Message"
       />
-      <button /* className={style.button} */ type="submit">Send</button>
+      <button
+        /* className={style.button} */ type="submit"
+        onClick={getChuckAnswer}
+      >
+        Send
+      </button>
     </form>
   );
 };
