@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { auth, firestore } from "../../index";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import axios from "axios";
+import Notification from "../Notification";
 
 const SendMessage = ({ scroll, currConvers }) => {
   const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
@@ -12,6 +13,7 @@ const SendMessage = ({ scroll, currConvers }) => {
       setAnswer({
         icon_url: response.data.icon_url,
         answerValue: response.data.value,
+        name: currConvers.userName,
       });
     });
   };
@@ -50,28 +52,32 @@ const SendMessage = ({ scroll, currConvers }) => {
   };
 
   return (
-    <form
-      onSubmit={
-        sendMessage
-        // getChuckAnswer();
-      } /*className={style.form}*/
-    >
-      <input
-        value={input.trim()}
-        onChange={(e) => setInput(e.target.value)}
-        // className={style.input}
-        type="text"
-        placeholder="Message"
-      />
-      <button
-        /* className={style.button} */
-        onClick={() => {
-          if (input.trim() !== "") getChuckAnswer();
-        }}
+    <>
+      {" "}
+      <form
+        onSubmit={
+          sendMessage
+          // getChuckAnswer();
+        } /*className={style.form}*/
       >
-        Send
-      </button>
-    </form>
+        <input
+          value={input.trim()}
+          onChange={(e) => setInput(e.target.value)}
+          // className={style.input}
+          type="text"
+          placeholder="Message"
+        />
+        <button
+          /* className={style.button} */
+          onClick={() => {
+            if (input.trim() !== "") getChuckAnswer();
+            return <Notification answer={answer} />;
+          }}
+        >
+          Send
+        </button>
+      </form>
+    </>
   );
 };
 
