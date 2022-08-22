@@ -5,9 +5,12 @@ import MessageList from "../MessageList";
 import "./Messenger.css";
 
 export default function Messenger(props) {
-  const [currConvers, setCurrConvers] = useState({});
+  const [currConvers, setCurrConvers] = useState({
+    userId: 1,
+    userName: "Ilona Maker ",
+  });
   const chooseConvers = (dat) => {
-    setCurrConvers({ ...dat });
+    setCurrConvers({ ...currConvers, ...dat });
   };
   return (
     <>

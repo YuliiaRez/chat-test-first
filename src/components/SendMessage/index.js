@@ -1,26 +1,47 @@
-import React, { useState } from "react";
-import axios from "axios";
-
+import React, { useState, useEffect } from "react";
 import { auth, firestore } from "../../index";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import axios from "axios";
 
 const SendMessage = ({ scroll, currConvers }) => {
-  const [input, setInput] = useState("");
   const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
-  const getAnswer = () => {};
+  const [input, setInput] = useState("");
+
+  const getChuckAnswer = () => {
+    axios.get("https://api.chucknorris.io/jokes/random").then((response) => {
+      setAnswer({
+        icon_url: response.data.icon_url,
+        answerValue: response.data.value,
+      });
+    });
+  };
+
+  const createAnswerMessage = async () => {
+    await addDoc(collection(firestore, "messagesDb"), {
+      text: answer.answerValue,
+      messageId: Date.now(),
+      userId: currConvers.userId,
+      timestamp: serverTimestamp(),
+    });
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      if (answer.answerValue !== "") createAnswerMessage();
+    }, 4000);
+  }, [answer]);
+
   const sendMessage = async (e) => {
     e.preventDefault();
-
-    if (input === "") {
+    if (input.trim() === "") {
       alert("Please enter a valid message");
+
       return;
     }
-
     const { uid, displayName } = auth.currentUser;
     await addDoc(collection(firestore, "messagesDb"), {
       text: input,
       messageId: Date.now(),
-      userId: currConvers.userId,
+      userId: uid,
       timestamp: serverTimestamp(),
     });
 
@@ -29,15 +50,27 @@ const SendMessage = ({ scroll, currConvers }) => {
   };
 
   return (
-    <form onSubmit={sendMessage} /*className={style.form}*/>
+    <form
+      onSubmit={
+        sendMessage
+        // getChuckAnswer();
+      } /*className={style.form}*/
+    >
       <input
-        value={input}
+        value={input.trim()}
         onChange={(e) => setInput(e.target.value)}
         // className={style.input}
         type="text"
         placeholder="Message"
       />
-      <button /* className={style.button} */ type="submit">Send</button>
+      <button
+        /* className={style.button} */
+        onClick={() => {
+          if (input.trim() !== "") getChuckAnswer();
+        }}
+      >
+        Send
+      </button>
     </form>
   );
 };
