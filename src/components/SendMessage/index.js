@@ -1,31 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth, firestore } from "../../index";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import axios from "axios";
 
-const SendMessage = ({ scroll }) => {
+const SendMessage = ({ scroll, currConvers }) => {
   const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
+  const [input, setInput] = useState("");
+
   const getChuckAnswer = () => {
-    setTimeout(() => {
-      axios.get("https://api.chucknorris.io/jokes/random").then((response) => {
-        console.log("response", response.data.value);
-        setAnswer({
-          icon_url: response.data.icon_url,
-          answerValue: response.data.value,
-        });
+    axios.get("https://api.chucknorris.io/jokes/random").then((response) => {
+      setAnswer({
+        icon_url: response.data.icon_url,
+        answerValue: response.data.value,
       });
-    }, 3000);
+    });
   };
 
-  const [input, setInput] = useState("");
+  const createAnswerMessage = async () => {
+    await addDoc(collection(firestore, "messagesDb"), {
+      text: answer.answerValue,
+      messageId: Date.now(),
+      userId: currConvers.userId,
+      timestamp: serverTimestamp(),
+    });
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      if (answer.answerValue !== "") createAnswerMessage();
+    }, 4000);
+  }, [answer]);
+
   const sendMessage = async (e) => {
     e.preventDefault();
-
-    if (input === "") {
+    if (input.trim() === "") {
       alert("Please enter a valid message");
+
       return;
     }
-
     const { uid, displayName } = auth.currentUser;
     await addDoc(collection(firestore, "messagesDb"), {
       text: input,
@@ -46,15 +57,17 @@ const SendMessage = ({ scroll }) => {
       } /*className={style.form}*/
     >
       <input
-        value={input}
+        value={input.trim()}
         onChange={(e) => setInput(e.target.value)}
         // className={style.input}
         type="text"
         placeholder="Message"
       />
       <button
-        /* className={style.button} */ type="submit"
-        onClick={getChuckAnswer}
+        /* className={style.button} */
+        onClick={() => {
+          if (input.trim() !== "") getChuckAnswer();
+        }}
       >
         Send
       </button>
