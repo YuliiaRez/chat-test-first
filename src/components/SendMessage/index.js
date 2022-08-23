@@ -5,7 +5,7 @@ import axios from "axios";
 import Notification from "../Notification";
 import "./SendMessage.css";
 
-const SendMessage = ({ scroll, currConvers }) => {
+const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
   const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
   const [input, setInput] = useState("");
 
@@ -31,6 +31,7 @@ const SendMessage = ({ scroll, currConvers }) => {
   useEffect(() => {
     setTimeout(() => {
       if (answer.answerValue !== "") createAnswerMessage();
+      // setNewEvent(!newEvent);
     }, 2000);
   }, [answer]);
 
@@ -72,6 +73,8 @@ const SendMessage = ({ scroll, currConvers }) => {
           /* className={style.button} */
           onClick={() => {
             if (input.trim() !== "") getChuckAnswer();
+            // setNewEvent(!newEvent);
+
             return <Notification answer={answer} />;
           }}
         >

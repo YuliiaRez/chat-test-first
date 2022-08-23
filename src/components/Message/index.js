@@ -5,14 +5,21 @@ import "./Message.css";
 import { auth } from "../../index";
 
 const Message = ({ message }) => {
-  const messageClass = /*message.uid === auth.currentUser.uid*/ true
-    ? `message.mine`
-    : ``;
+  console.log("message", message);
+  const messageClass = message.mine ? `message.mine` : ``;
+  const friendlyTimestamp = moment(message.timestamp).format("LLLL");
 
   return (
     <div>
-      <div className={`message ${messageClass}`}>
-        <p className={""}>{message.name}</p>
+      <div className={`message ${messageClass} .bubble-container .bubble `}>
+        {!message.mine && (
+          <img
+            className="conversation-photo"
+            src={message.userAvatar}
+            alt="conversation"
+          />
+        )}
+        <div className="timestamp">{friendlyTimestamp}</div>
         <p>{message.text}</p>
       </div>
     </div>

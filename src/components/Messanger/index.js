@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from "react";
 import ConversationList from "../ConversationList";
 import MessageList from "../MessageList";
-import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
+import { query, collection, onSnapshot, orderBy } from "firebase/firestore";
 import { firestore } from "../../index.js";
+import { initialContacts, initialConversation } from "./initial";
 
 import "./Messanger.css";
 
-export default function Messenger(props) {
-  const [currConvers, setCurrConvers] = useState({
-    userId: "1",
-    userName: "",
-    userAvatar: "",
-  });
+export default function Messenger() {
+  const [currConvers, setCurrConvers] = useState(initialConversation);
+  const [lastConvs, setlastConvs] = useState(initialContacts);
+  const [messages, setMessages] = useState([]);
+  // const [newEvent, setNewEvent] = useState(false);
+
   const chooseConvers = (data) => {
     setCurrConvers({ ...currConvers, ...data });
   };
 
-  const [lastConvs, setlastConvs] = useState([]);
-  const [usersId, setusersId] = useState([]);
-  const [databaseEvent, setdatabaseEvent] = useState(false);
-
   useEffect(() => {
-    let databaseName = String("1" /*data.userId*/);
     const q = query(
-      collection(firestore, `${databaseName}`),
+      collection(firestore, `${currConvers.userId}`),
       orderBy("timestamp")
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -31,22 +27,31 @@ export default function Messenger(props) {
       querySnapshot.forEach((doc) => {
         items.push({ ...doc.data(), id: doc.id });
       });
-      let itemNew = [];
-      itemNew.unshift(items[items.length - 1]);
-      setlastConvs(itemNew);
+      setMessages(items);
+      let arr = [...lastConvs.filter((it) => it.userId !== currConvers.userId)];
+      arr.unshift(items[items.length - 1]);
+      setlastConvs(arr);
     });
 
     return () => unsubscribe();
-  }, [props]);
+  }, [currConvers, messages.length]);
+
   return (
     <>
       <div className="messenger">
         <div className="scrollable sidebar">
-          <ConversationList chooseConvers={chooseConvers} />
+          <ConversationList
+            chooseConvers={chooseConvers}
+            lastConvs={lastConvs}
+          />
         </div>
 
         <div className="scrollable content">
-          <MessageList currConvers={currConvers} />
+          <MessageList
+            currConvers={currConvers}
+            // setNewEvent={setNewEvent}
+            // newEvent={newEvent}
+          />
         </div>
       </div>
     </>
