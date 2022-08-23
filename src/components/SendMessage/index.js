@@ -3,6 +3,7 @@ import { auth, firestore } from "../../index";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import axios from "axios";
 import Notification from "../Notification";
+import "./SendMessage.css";
 
 const SendMessage = ({ scroll, currConvers }) => {
   const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
@@ -11,25 +12,26 @@ const SendMessage = ({ scroll, currConvers }) => {
   const getChuckAnswer = () => {
     axios.get("https://api.chucknorris.io/jokes/random").then((response) => {
       setAnswer({
-        icon_url: response.data.icon_url,
         answerValue: response.data.value,
-        name: currConvers.userName,
       });
     });
   };
 
   const createAnswerMessage = async () => {
-    await addDoc(collection(firestore, "messagesDb"), {
+    await addDoc(collection(firestore, String(currConvers.userId)), {
       text: answer.answerValue,
       messageId: Date.now(),
       userId: currConvers.userId,
       timestamp: serverTimestamp(),
+      userName: currConvers.userName,
+      userAvatar: currConvers.userAvatar,
+      mine: false,
     });
   };
   useEffect(() => {
     setTimeout(() => {
       if (answer.answerValue !== "") createAnswerMessage();
-    }, 4000);
+    }, 2000);
   }, [answer]);
 
   const sendMessage = async (e) => {
@@ -40,11 +42,15 @@ const SendMessage = ({ scroll, currConvers }) => {
       return;
     }
     const { uid, displayName } = auth.currentUser;
-    await addDoc(collection(firestore, "messagesDb"), {
+    await addDoc(collection(firestore, String(currConvers.userId)), {
       text: input,
       messageId: Date.now(),
-      userId: uid,
+      authId: uid,
+      mine: true,
       timestamp: serverTimestamp(),
+      userName: currConvers.userName,
+      userAvatar: currConvers.userAvatar,
+      userId: currConvers.userId,
     });
 
     setInput("");
@@ -54,16 +60,11 @@ const SendMessage = ({ scroll, currConvers }) => {
   return (
     <>
       {" "}
-      <form
-        onSubmit={
-          sendMessage
-          // getChuckAnswer();
-        } /*className={style.form}*/
-      >
+      <form onSubmit={sendMessage} className="compose">
         <input
           value={input.trim()}
           onChange={(e) => setInput(e.target.value)}
-          // className={style.input}
+          className="compose-input"
           type="text"
           placeholder="Message"
         />

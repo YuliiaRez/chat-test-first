@@ -16,15 +16,17 @@ import Toolbar from "../Toolbar";
 import ToolbarButton from "../ToolbarButton";
 import Message from "../Message";
 import SendMessage from "../SendMessage";
-import ConversationCurrent from "../ConversationCurrent";
 
 const MessageList = (props) => {
   const { currConvers } = props;
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
-
   useEffect(() => {
-    const q = query(collection(firestore, "messagesDb"), orderBy("timestamp"));
+    let databaseName = String(currConvers.userId);
+    const q = query(
+      collection(firestore, `${databaseName}`),
+      orderBy("timestamp")
+    );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messages = [];
       querySnapshot.forEach((doc) => {
@@ -37,13 +39,17 @@ const MessageList = (props) => {
 
   return (
     <>
-      <ConversationCurrent currConvers={currConvers} />
       <div className="message-list-container">
-        {messages &&
-          messages.map((message) => (
-            <Message key={message.id} message={message} />
-          ))}
+        <Toolbar title={currConvers.userName} />
+        <div className="message-list-container">
+          {" "}
+          {messages &&
+            messages.map((message) => (
+              <Message key={message.id} message={message} />
+            ))}
+        </div>
       </div>
+
       {/* Send Message Compoenent */}
       <SendMessage scroll={scroll} currConvers={currConvers}></SendMessage>
       <span ref={scroll}></span>
