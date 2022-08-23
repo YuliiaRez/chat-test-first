@@ -18,7 +18,7 @@ import Message from "../Message";
 import SendMessage from "../SendMessage";
 
 const MessageList = (props) => {
-  const { currConvers } = props;
+  const { currConvers/*, newEvent, setNewEvent*/ } = props;
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
   useEffect(() => {
@@ -51,7 +51,12 @@ const MessageList = (props) => {
       </div>
 
       {/* Send Message Compoenent */}
-      <SendMessage scroll={scroll} currConvers={currConvers}></SendMessage>
+      <SendMessage
+        scroll={scroll}
+        currConvers={currConvers}
+        // newEvent={newEvent}
+        // setNewEvent={setNewEvent}
+      ></SendMessage>
       <span ref={scroll}></span>
     </>
   );

@@ -35,7 +35,7 @@ export default function ConversationListItem(props) {
   useEffect(() => {
     shave(".conversation-snippet", 20);
   });
-  console.log("lastItem", lastItem);
+  // console.log("lastItem", lastItem);
 
   return (
     <div onClick={() => onClick(data)} className="conversation-list-item">
@@ -46,7 +46,7 @@ export default function ConversationListItem(props) {
       />
       <div className="conversation-info">
         <h1 className="conversation-title">{data.userName}</h1>
-        <p className="conversation-snippet">{"text"}</p>
+        <p className="conversation-snippet">{data.text}</p>
         {/* <p className="conversation-snippet">{lastItem.timestamp}</p> */}
       </div>
     </div>
