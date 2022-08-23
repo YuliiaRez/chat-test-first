@@ -13,6 +13,9 @@ export default function ConversationList(props) {
   const { chooseConvers } = props;
 
   const [conversations, setConversations] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     const q = query(collection(firestore, "contactsDb"), orderBy("tsLastMess"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -25,6 +28,28 @@ export default function ConversationList(props) {
     return () => unsubscribe();
   }, [props]);
 
+  const searching = (e) => {
+    setSearch(e.target.value);
+  };
+  const filterContacts = (searchText, contacts) => {
+    if (!searchText.trim()) {
+      return contacts;
+    } else {
+      return contacts.filter(({ userName }) =>
+        userName.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+  };
+
+  useEffect(() => {
+    const Delay = setTimeout(() => {
+      const filteredContacts = filterContacts(search, conversations);
+      setContacts(filteredContacts);
+    }, 300);
+
+    return () => clearTimeout(Delay);
+  }, [search]);
+
   return (
     <div className="conversation-list">
       <Toolbar
@@ -34,11 +59,11 @@ export default function ConversationList(props) {
           <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />,
         ]}
       />
-      <ConversationSearch />
-      {conversations.map((conversation) => (
+      <ConversationSearch onChanging={searching} search={search} />
+      {contacts.map((contact) => (
         <ConversationListItem
-          key={conversation.userName}
-          data={conversation}
+          key={contact.userName}
+          data={contact}
           onClick={chooseConvers}
         />
       ))}
