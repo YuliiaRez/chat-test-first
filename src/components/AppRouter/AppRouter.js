@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Context } from "../..";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import "./AppRouter.css";
-import Messenger from "../Messenger";
+import Messenger from "../Messanger";
 
 const AppRouter = () => {
   const { auth } = useContext(Context);
