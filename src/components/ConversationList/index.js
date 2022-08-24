@@ -5,34 +5,45 @@ import Toolbar from "../Toolbar";
 import ToolbarButton from "../ToolbarButton";
 import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import { firestore } from "../../index";
+import { initialContacts } from "../Messanger/initial";
 
 import "./ConversationList.css";
 
 export default function ConversationList(props) {
-  const { chooseConvers, lastConvs } = props;
+  const { chooseConvers, currConvers } = props;
   // const [chats, setChats] = useState([]);
   const [contactsDb, setContactsDb] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
+  const [lastConvs, setlastConvs] = useState(initialContacts);
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    const q = query(
+      collection(firestore, `${currConvers.userId}`),
+      orderBy("timestamp")
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let items = [];
+      querySnapshot.forEach((doc) => {
+        items.push({ ...doc.data(), id: doc.id });
+      });
+      setMessages(items);
+      let arr = [...lastConvs.filter((it) => it.userId !== currConvers.userId)];
+      arr.unshift(items[items.length - 1]);
+      setlastConvs(arr);
+    });
+    setContacts(lastConvs);
+
+    return () => unsubscribe();
+  }, [currConvers, messages.length]);
 
   const searching = (e) => {
     setSearch(e.target.value);
   };
 
   useEffect(() => {
-    // const q = query(collection(firestore, "contactsDb"), orderBy("tsLastMess"));
-    // const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    //   let contactsAll = [];
-    //   querySnapshot.forEach((doc) => {
-    //     contactsAll.push({ ...doc.data(), id: doc.id });
-    //   });
-
-    //   setContactsDb(contactsAll);
-    // });
-
     chooseConvers(lastConvs[0]);
-
-    // return () => unsubscribe();
   }, []);
 
   const filterContacts = (searchText, contacts) => {
@@ -49,9 +60,6 @@ export default function ConversationList(props) {
       const filteredContacts = filterContacts(search, lastConvs);
       setContacts(filteredContacts);
     }, 300);
-    console.log("lastConvs", lastConvs);
-    console.log("contacts", contacts);
-    console.log("search", search);
 
     return () => clearTimeout(Delay);
   }, [search]);
@@ -60,10 +68,10 @@ export default function ConversationList(props) {
       <ConversationSearch onChanging={searching} search={search} />
 
       <Toolbar title="Chats" />
-      {contacts.map((contact) => (
+      {contacts.map((contact, index) => (
         <ConversationListItem
           // chatsDescOrder={chatsDescOrder}
-          key={contact.userName}
+          key={index}
           data={contact}
           onClick={chooseConvers}
         />

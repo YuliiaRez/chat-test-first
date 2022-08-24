@@ -1,7 +1,7 @@
 import React from "react";
 
 function Login() {
-  return <div>Please, register with Google Account</div>;
+  return <div></div>;
 }
 
 export default Login;

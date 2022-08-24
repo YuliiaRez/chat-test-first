@@ -73,10 +73,10 @@ const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
           /* className={style.button} */
           onClick={() => {
             if (input.trim() !== "") getChuckAnswer();
-            // setNewEvent(!newEvent);
 
             return <Notification answer={answer} />;
           }}
+          type="submit"
         >
           Send
         </button>

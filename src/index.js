@@ -13,13 +13,14 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 const firebaseConfig = {
   apiKey: "AIzaSyDjjkh_lMD636n2sXnaOQcvyKtWPdEHwAo",
   authDomain: "chat-test-cdf26.firebaseapp.com",
+  databaseURL:
+    "https://chat-test-cdf26-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "chat-test-cdf26",
   storageBucket: "chat-test-cdf26.appspot.com",
   messagingSenderId: "788245263002",
   appId: "1:788245263002:web:d9b778adfb43556a1f2523",
   measurementId: "G-038VSVRC90",
 };
-
 export const Context = createContext(null);
 
 export const app = initializeApp(firebaseConfig);
