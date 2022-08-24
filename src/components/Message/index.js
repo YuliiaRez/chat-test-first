@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
+import { format } from "date-fns";
 
-import moment from "moment";
 import "./Message.css";
-import { auth } from "../../index";
 
 const Message = ({ message }) => {
-  console.log("message", message);
   const messageClass = message.mine ? `message.mine` : ``;
-  const friendlyTimestamp = moment(message.timestamp).format("LLLL");
+  // const friendlyTimestamp = format(message.timestamp.toDate(), "Pp");
 
   return (
     <div>
@@ -19,7 +17,7 @@ const Message = ({ message }) => {
             alt="conversation"
           />
         )}
-        <div className="timestamp">{friendlyTimestamp}</div>
+        <div className="timestamp">Date</div>
         <p>{message.text}</p>
       </div>
     </div>

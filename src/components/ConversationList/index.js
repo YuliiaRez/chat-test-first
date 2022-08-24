@@ -11,7 +11,7 @@ import "./ConversationList.css";
 export default function ConversationList(props) {
   const { chooseConvers, lastConvs } = props;
   // const [chats, setChats] = useState([]);
-  // const [contactsDb, setContactsDb] = useState([]);
+  const [contactsDb, setContactsDb] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -27,11 +27,12 @@ export default function ConversationList(props) {
     //     contactsAll.push({ ...doc.data(), id: doc.id });
     //   });
 
-    //  setContactsDb(contactsAll);
+    //   setContactsDb(contactsAll);
     // });
-    // return () => unsubscribe();
-    setContacts(lastConvs);
+
     chooseConvers(lastConvs[0]);
+
+    // return () => unsubscribe();
   }, []);
 
   const filterContacts = (searchText, contacts) => {
@@ -49,6 +50,8 @@ export default function ConversationList(props) {
       setContacts(filteredContacts);
     }, 300);
     console.log("lastConvs", lastConvs);
+    console.log("contacts", contacts);
+    console.log("search", search);
 
     return () => clearTimeout(Delay);
   }, [search]);
@@ -57,7 +60,7 @@ export default function ConversationList(props) {
       <ConversationSearch onChanging={searching} search={search} />
 
       <Toolbar title="Chats" />
-      {lastConvs.map((contact) => (
+      {contacts.map((contact) => (
         <ConversationListItem
           // chatsDescOrder={chatsDescOrder}
           key={contact.userName}
