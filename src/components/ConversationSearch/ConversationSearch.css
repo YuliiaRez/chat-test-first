@@ -2,6 +2,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+  background: rgb(235, 237, 238);
 }
 
 .conversation-search-input {

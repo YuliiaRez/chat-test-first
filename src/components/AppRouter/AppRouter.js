@@ -1,12 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import Chat from "../Chat";
 import Login from "../Login";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Context } from "../..";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import "./AppRouter.css";
-import Messenger from "../Messanger";
+import Messanger from "../Messanger";
 
 const AppRouter = () => {
   const { auth } = useContext(Context);
@@ -32,8 +31,8 @@ const AppRouter = () => {
         </button>
       </Link>
       <Routes>
-        <Route path={"/"} element={<Messenger />}></Route>
-        <Route path={"/chat"} element={<Messenger />} />
+        <Route path={"/"} element={<Messanger />}></Route>
+        <Route path={"/chat"} element={<Messanger />} />
       </Routes>
     </>
   ) : (
