@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+/*import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { requestForToken, onMessageListener } from "../../index";
+import { requestForToken, onMessageListener } from "../../index";*/
 
-const Notification = ({ answer }) => {
+/*const Notification = ({ answer }) => {
   const [notification, setNotification] = useState({ title: "", body: "" });
   const notify = () => toast(<ToastDisplay />);
   function ToastDisplay() {
@@ -25,10 +25,10 @@ const Notification = ({ answer }) => {
   requestForToken();
 
   onMessageListener()
-    .then((payload) => {
+    .then((answe) => {
       setNotification({
-        title: payload?.notification?.answer.name,
-        body: payload?.notification?.answer.answerValue,
+        title: answer.name,
+        body: answer.answerValue,
       });
     })
     .catch((err) => console.log("failed: ", err));
@@ -36,4 +36,4 @@ const Notification = ({ answer }) => {
   return <Toaster />;
 };
 
-export default Notification;
+export default Notification;*/

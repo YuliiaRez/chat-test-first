@@ -35,6 +35,7 @@ export const requestForToken = () => {
   })
     .then((currentToken) => {
       if (currentToken) {
+        console.log("current token for client: ", currentToken);
       } else {
         console.log(
           "No registration token available. Request permission to generate one."
@@ -52,6 +53,7 @@ export const onMessageListener = () =>
       resolve(payload);
     });
   });
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

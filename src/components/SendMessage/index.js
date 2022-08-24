@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { auth, firestore } from "../../index";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import axios from "axios";
-import Notification from "../Notification";
+import toast, { Toaster } from "react-hot-toast";
+// import Notification from "../Notification";
 import "./SendMessage.css";
+const notify = () => toast("CHATS:you got new message!!!");
 
-const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
+const SendMessage = ({ scroll, currConvers }) => {
   const [answer, setAnswer] = useState({ icon_url: "", answerValue: "" });
   const [input, setInput] = useState("");
 
@@ -30,9 +32,11 @@ const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
   };
   useEffect(() => {
     setTimeout(() => {
-      if (answer.answerValue !== "") createAnswerMessage();
-      // setNewEvent(!newEvent);
-    }, 2000);
+      if (answer.answerValue !== "") {
+        createAnswerMessage();
+        notify();
+      }
+    }, 8000);
   }, [answer]);
 
   const sendMessage = async (e) => {
@@ -42,7 +46,7 @@ const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
 
       return;
     }
-    const { uid, displayName } = auth.currentUser;
+    const { uid } = auth.currentUser;
     await addDoc(collection(firestore, String(currConvers.userId)), {
       text: input,
       messageId: Date.now(),
@@ -63,7 +67,7 @@ const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
       {" "}
       <form onSubmit={sendMessage} className="compose">
         <input
-          value={input.trim()}
+          value={input}
           onChange={(e) => setInput(e.target.value)}
           className="compose-input"
           type="text"
@@ -74,7 +78,7 @@ const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
           onClick={() => {
             if (input.trim() !== "") getChuckAnswer();
 
-            return <Notification answer={answer} />;
+            // return <Notification answer={answer} />;
           }}
           type="submit"
         ></button>
