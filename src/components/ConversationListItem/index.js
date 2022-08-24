@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import shave from "shave";
 import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
+import { format } from "date-fns";
 import { firestore } from "../../index.js";
 
 import "./ConversationListItem.css";
@@ -8,6 +9,7 @@ import "./ConversationListItem.css";
 export default function ConversationListItem(props) {
   const { onClick, data /*chatsDescOrder*/ } = props;
   const [lastItem, setlastItem] = useState([]);
+  // let date = format(data.timestamp.toDate(), "PP");
 
   useEffect(() => {
     let databaseName = String(data.userId);
@@ -35,7 +37,6 @@ export default function ConversationListItem(props) {
   useEffect(() => {
     shave(".conversation-snippet", 20);
   });
-  // console.log("lastItem", lastItem);
 
   return (
     <div onClick={() => onClick(data)} className="conversation-list-item">
@@ -47,7 +48,7 @@ export default function ConversationListItem(props) {
       <div className="conversation-info">
         <h1 className="conversation-title">{data.userName}</h1>
         <p className="conversation-snippet">{data.text}</p>
-        {/* <p className="conversation-snippet">{lastItem.timestamp}</p> */}
+        {/* <p className="conversation-snippet">{date}</p> */}
       </div>
     </div>
   );

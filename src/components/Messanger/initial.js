@@ -11,7 +11,7 @@ export const initialContacts = [
     },
     messageId: 1661257065412,
     authId: "lacIHXKcvBgvrT2VJDBwOKnKTc23",
-    text: "sdfghj,",
+    text: "Chuck Norris is the only man alive that can be a badass while riding a moped.",
     id: "mORwkzyjrH1o0hfmWzwV",
   },
   {
@@ -22,7 +22,7 @@ export const initialContacts = [
     mine: true,
     messageId: 1661257059235,
     userName: "Alina Pash",
-    text: "bm",
+    text: "Chuck Norris is the only man alive that can be a badass while riding a moped.",
     userAvatar:
       "https:/meragor.com/files/styles/220_220_bottom_wm/sfztn_girl_avatar_324.jpg",
     authId: "lacIHXKcvBgvrT2VJDBwOKnKTc23",
@@ -61,7 +61,7 @@ export const initialContacts = [
     userAvatar:
       "https:/meragor.com/files/styles/220_220_bottom_wm/sfztn_girl_avatar_69.jpg",
     mine: true,
-    text: "fdfbfgb",
+    text: "Chuck Norris is the only man alive that can be a badass while riding a moped.",
     messageId: 1661268173296,
     authId: "lacIHXKcvBgvrT2VJDBwOKnKTc23",
     userName: "Ilona Maker",
