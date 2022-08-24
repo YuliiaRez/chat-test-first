@@ -7,10 +7,9 @@ import { firestore } from "../../index.js";
 import "./ConversationListItem.css";
 
 export default function ConversationListItem(props) {
-  const { onClick, data /*chatsDescOrder*/ } = props;
+  const { onClick, data } = props;
   const [lastItem, setlastItem] = useState([]);
-  // let date = format(data.timestamp.toDate(), "PP");
-
+  const date = format(new Date(data.messageId), "PP");
   useEffect(() => {
     let databaseName = String(data.userId);
     const q = query(
@@ -48,7 +47,7 @@ export default function ConversationListItem(props) {
       <div className="conversation-info">
         <h1 className="conversation-title">{data.userName}</h1>
         <p className="conversation-snippet">{data.text}</p>
-        {/* <p className="conversation-snippet">{date}</p> */}
+        <p className="conversation-snippet">{date}</p>
       </div>
     </div>
   );

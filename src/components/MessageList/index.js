@@ -2,13 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import moment from "moment";
 
 import { firestore } from "../../index";
-import {
-  query,
-  collection,
-  orderBy,
-  onSnapshot,
-  where,
-} from "firebase/firestore";
+import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import "./MessageList.css";
 
 import TextInput from "../TextInput";
@@ -18,7 +12,7 @@ import Message from "../Message";
 import SendMessage from "../SendMessage";
 
 const MessageList = (props) => {
-  const { currConvers/*, newEvent, setNewEvent*/ } = props;
+  const { currConvers /*, newEvent, setNewEvent*/ } = props;
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
   useEffect(() => {

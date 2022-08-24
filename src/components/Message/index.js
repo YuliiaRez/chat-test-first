@@ -5,8 +5,8 @@ import "./Message.css";
 
 const Message = ({ message }) => {
   const messageClass = message.mine ? `message.mine` : ``;
-  // const friendlyTimestamp = format(message.timestamp.toDate(), "Pp");
-
+  console.log("message.messageId", message.messageId);
+  const date = format(new Date(message.messageId), "Pp");
   return (
     <div>
       <div className={`message ${messageClass} .bubble-container .bubble `}>
@@ -17,7 +17,7 @@ const Message = ({ message }) => {
             alt="conversation"
           />
         )}
-        <div className="timestamp">Date</div>
+        <div className="timestamp">{date}</div>
         <p>{message.text}</p>
       </div>
     </div>
