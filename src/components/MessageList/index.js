@@ -33,25 +33,33 @@ const MessageList = (props) => {
 
   return (
     <>
-      <div className="message-list-container">
-        <Toolbar title={currConvers.userName} />
+      <div className="message-list">
         <div className="message-list-container">
-          {" "}
-          {messages &&
-            messages.map((message) => (
-              <Message key={message.id} message={message} />
-            ))}
+          <div className="current-conversation-container">
+            <img
+              className="message-photo"
+              src={currConvers.userAvatar}
+              alt="avatar"
+            />
+            <span className="current-conversation-name">{currConvers.userName}</span>
+          </div>
+          <div className="message-list-container">
+            {messages &&
+              messages.map((message) => (
+                <Message key={message.id} message={message} />
+              ))}
+          </div>
+          {/* Send Message Compoenent */}
+          <SendMessage
+            scroll={scroll}
+            currConvers={currConvers}
+            // newEvent={newEvent}
+            // setNewEvent={setNewEvent}
+          ></SendMessage>
         </div>
-      </div>
 
-      {/* Send Message Compoenent */}
-      <SendMessage
-        scroll={scroll}
-        currConvers={currConvers}
-        // newEvent={newEvent}
-        // setNewEvent={setNewEvent}
-      ></SendMessage>
-      <span ref={scroll}></span>
+        <span ref={scroll}></span>
+      </div>
     </>
   );
 };

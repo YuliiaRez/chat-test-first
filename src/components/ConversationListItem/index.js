@@ -7,9 +7,10 @@ import { firestore } from "../../index.js";
 import "./ConversationListItem.css";
 
 export default function ConversationListItem(props) {
-  const { onClick, data } = props;
+  const { onClick, data, setSearch } = props;
   const [lastItem, setlastItem] = useState([]);
   const date = format(new Date(data.messageId), "PP");
+
   useEffect(() => {
     let databaseName = String(data.userId);
     const q = query(
@@ -29,25 +30,30 @@ export default function ConversationListItem(props) {
     return () => unsubscribe();
   }, [props]);
 
-  // useEffect(() => {
-  //   chatsDescOrder(lastItem);
-  // }, [lastItem]);
-
   useEffect(() => {
     shave(".conversation-snippet", 20);
   });
 
   return (
-    <div onClick={() => onClick(data)} className="conversation-list-item">
-      <img
-        className="conversation-photo"
-        src={data.userAvatar}
-        alt="conversation"
-      />
+    <div
+      onClick={() => {
+        onClick(data);
+        setSearch("");
+      }}
+      className="conversation-list-item"
+    >
+      <img className="conversation-photo" src={data.userAvatar} alt="avatar" />
       <div className="conversation-info">
-        <h1 className="conversation-title">{data.userName}</h1>
+        <div className="conversation-attributes">
+          <h1 className="conversation-title">{data.userName}</h1>
+          <h1
+            className="conversation-snippet 
+          data"
+          >
+            {date}
+          </h1>
+        </div>
         <p className="conversation-snippet">{data.text}</p>
-        <p className="conversation-snippet">{date}</p>
       </div>
     </div>
   );

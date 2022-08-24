@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ConversationSearch from "../ConversationSearch";
 import ConversationListItem from "../ConversationListItem";
 import Toolbar from "../Toolbar";
-import ToolbarButton from "../ToolbarButton";
 import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import { firestore } from "../../index";
 import { initialContacts } from "../Messanger/initial";
@@ -11,8 +10,7 @@ import "./ConversationList.css";
 
 export default function ConversationList(props) {
   const { chooseConvers, currConvers } = props;
-  // const [chats, setChats] = useState([]);
-  const [contactsDb, setContactsDb] = useState([]);
+  // const [contactsInDb, setContactsInDb] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [lastConvs, setlastConvs] = useState(initialContacts);
@@ -60,20 +58,19 @@ export default function ConversationList(props) {
       const filteredContacts = filterContacts(search, lastConvs);
       setContacts(filteredContacts);
     }, 300);
-
     return () => clearTimeout(Delay);
   }, [search]);
   return (
     <div className="conversation-list">
       <ConversationSearch onChanging={searching} search={search} />
 
-      <Toolbar title="Chats" />
+      <div className="chats">Chats</div>
       {contacts.map((contact, index) => (
         <ConversationListItem
-          // chatsDescOrder={chatsDescOrder}
           key={index}
           data={contact}
           onClick={chooseConvers}
+          setSearch={setSearch}
         />
       ))}
     </div>

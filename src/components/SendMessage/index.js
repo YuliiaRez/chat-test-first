@@ -70,16 +70,14 @@ const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
           placeholder="Message"
         />
         <button
-          /* className={style.button} */
+          className="toolbar-button"
           onClick={() => {
             if (input.trim() !== "") getChuckAnswer();
 
             return <Notification answer={answer} />;
           }}
           type="submit"
-        >
-          Send
-        </button>
+        ></button>
       </form>
     </>
   );
