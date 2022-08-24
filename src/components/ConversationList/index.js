@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ConversationSearch from "../ConversationSearch";
 import ConversationListItem from "../ConversationListItem";
-import Toolbar from "../Toolbar";
 import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import { firestore } from "../../index";
 import { initialContacts } from "../Messanger/initial";

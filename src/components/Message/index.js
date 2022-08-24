@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { format } from "date-fns";
 
 import "./Message.css";
 
 const Message = ({ message }) => {
-  const messageClass = message.mine ? `message-mine` : ``;
-
   const date = format(new Date(message.messageId), "Pp");
   return (
     <div>
@@ -41,28 +39,3 @@ const Message = ({ message }) => {
   );
 };
 export default Message;
-// export default function Message(props) {
-//   const {
-//     /*data, isMine, startsSequence, endsSequence, showTimestamp*/ message,
-//   } = props;
-
-//   // const friendlyTimestamp = moment(data.timestamp).format("LLLL");
-//   return (
-//     <div
-//       className={[
-//         "message",
-//         `${isMine ? "mine" : ""}`,
-//         `${startsSequence ? "start" : ""}`,
-//         `${endsSequence ? "end" : ""}`,
-//       ].join(" ")}
-//     >
-//       {showTimestamp && <div className="timestamp">{friendlyTimestamp}</div>}
-
-//       <div className="bubble-container">
-//         <div className="bubble" title={friendlyTimestamp}>
-//           {data.message}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }

@@ -3,6 +3,9 @@
   display: flex;
   flex-direction: column;
   background: rgb(235, 237, 238);
+  position: sticky;
+  top: 0px;
+  left: 0;
 }
 
 .conversation-search-input {

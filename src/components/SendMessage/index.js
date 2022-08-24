@@ -31,8 +31,7 @@ const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
   useEffect(() => {
     setTimeout(() => {
       if (answer.answerValue !== "") createAnswerMessage();
-      // setNewEvent(!newEvent);
-    }, 2000);
+    }, 5000);
   }, [answer]);
 
   const sendMessage = async (e) => {
@@ -42,7 +41,7 @@ const SendMessage = ({ scroll, currConvers /*, newEvent, setNewEvent*/ }) => {
 
       return;
     }
-    const { uid, displayName } = auth.currentUser;
+    const { uid } = auth.currentUser;
     await addDoc(collection(firestore, String(currConvers.userId)), {
       text: input,
       messageId: Date.now(),

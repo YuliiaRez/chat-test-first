@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import Login from "../Login";
+import Login from "../Login/Login";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Context } from "../..";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -25,11 +25,14 @@ const AppRouter = () => {
 
   return user ? (
     <>
-      <Link to="/login">
-        <button className="navbar-button" onClick={() => auth.signOut()}>
-          Log Out
-        </button>
-      </Link>
+      <div className="navbar-container">
+        <Link to="/login">
+          <button className="navbar-button" onClick={() => auth.signOut()}>
+            Log Out
+          </button>
+        </Link>
+      </div>
+
       <Routes>
         <Route path={"/"} element={<Messanger />}></Route>
         <Route path={"/chat"} element={<Messanger />} />
@@ -37,9 +40,11 @@ const AppRouter = () => {
     </>
   ) : (
     <>
-      <button className="navbar-button" onClick={login}>
-        Login to the app with Google
-      </button>
+      <div className="navbar-container">
+        <button className="navbar-button" onClick={login}>
+          Login to the app with Google
+        </button>
+      </div>
 
       <Routes>
         <Route path={"/"} element={<Login />}></Route>

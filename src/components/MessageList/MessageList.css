@@ -6,6 +6,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: sticky;
+  top: 0px;
+  background: #eeeef1;
 }
 .current-conversation-name {
   color: rgb(80, 78, 78);

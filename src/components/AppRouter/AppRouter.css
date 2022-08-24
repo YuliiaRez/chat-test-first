@@ -1,17 +1,31 @@
+.navbar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: flex-end;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 46px;
+}
 .navbar-button {
-  color: #007aff;
+  color: #427db8;
   font-size: 15px;
   transition: all 0.1s;
   border-radius: 10px;
-  border: 1px solid blue;
+  border: 2px solid rgb(74, 74, 77);
   padding: 4px;
   margin-left: auto;
   margin-right: 20px;
+  height: 40px;
+  position: relative;
 }
 
 .navbar-button:hover {
   cursor: pointer;
-  color: #0063ce;
+  color: rgb(74, 74, 77);
+  background-color: #a1c7ee;
 }
 
 .navbar-button:active {
