@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import Login from "../Login/Login";
+import Login from "../Login";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Context } from "../..";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";

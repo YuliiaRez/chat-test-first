@@ -40,7 +40,7 @@
   max-width: 75%;
   color: white;
 }
-.message-mine .bubble-container .bubble . {
+.message-mine .bubble-container .bubble {
   margin: 1px 0px;
   background: #69696b;
   padding: 10px 15px;
@@ -75,6 +75,6 @@
   background: #d0d0da;
   padding: 10px 15px;
   border-radius: 25px;
-  max-width: 50%;
+  max-width: 40%;
   color: rgb(95, 93, 93);
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import ConversationList from "../ConversationList";
 import MessageList from "../MessageList";
 import { initialConversation } from "./initial";
@@ -14,6 +15,7 @@ export default function Messanger() {
 
   return (
     <>
+      <Toaster styly={{ background: "grey" }} />
       <div className="messanger">
         <div className="scrollable sidebar">
           <ConversationList
