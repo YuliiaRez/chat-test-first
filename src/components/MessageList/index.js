@@ -6,6 +6,8 @@ import "./MessageList.css";
 
 import Message from "../Message";
 import SendMessage from "../SendMessage";
+import q from "./face.jpg";
+import { a1 } from "../../imgs/a1.jpeg";
 
 const MessageList = (props) => {
   const { currConvers } = props;

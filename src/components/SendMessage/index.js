@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { auth, firestore } from "../../index";
+import { /* auth*/ firestore } from "../../index";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 // import Notification from "../Notification";
 import "./SendMessage.css";
 const notify = () => toast("CHATS:you got new message!!!");
@@ -46,11 +46,11 @@ const SendMessage = ({ scroll, currConvers }) => {
 
       return;
     }
-    const { uid } = auth.currentUser;
+    // const { uid } = auth.currentUser;
     await addDoc(collection(firestore, String(currConvers.userId)), {
       text: input,
       messageId: Date.now(),
-      authId: uid,
+      // authId: uid,
       mine: true,
       timestamp: serverTimestamp(),
       userName: currConvers.userName,
@@ -64,7 +64,6 @@ const SendMessage = ({ scroll, currConvers }) => {
 
   return (
     <>
-      {" "}
       <form onSubmit={sendMessage} className="compose">
         <input
           value={input}
@@ -76,6 +75,7 @@ const SendMessage = ({ scroll, currConvers }) => {
         <button
           className="toolbar-button"
           onClick={() => {
+            // sendMessage();
             if (input.trim() !== "") getChuckAnswer();
 
             // return <Notification answer={answer} />;

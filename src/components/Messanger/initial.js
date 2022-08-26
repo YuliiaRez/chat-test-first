@@ -1,8 +1,14 @@
+import a1 from "../../imgs/a1.jpeg";
+import a2 from "../../imgs/a2.jpeg";
+import a3 from "../../imgs/a3.jpeg";
+import a4 from "../../imgs/a4.jpeg";
+import a5 from "../../imgs/a5.jpeg";
+
 export const initialContacts = [
   {
     userId: "3",
     userAvatar:
-      "https:/meragor.com/files/styles/220_220_bottom_wm/sfztn_girl_avatar_138.jpg",
+      "https://png.pngtree.com/png-clipart/20220407/ourmid/pngtree-girl-drinking-pearl-milk-tea-cute-cartoon-character-avatar-social-media-png-image_4532752.png",
     userName: "Funny Girl",
     mine: true,
     timestamp: {
@@ -24,7 +30,7 @@ export const initialContacts = [
     userName: "Alina Pash",
     text: " that can be a badass while riding a moped.",
     userAvatar:
-      "https:/meragor.com/files/styles/220_220_bottom_wm/sfztn_girl_avatar_324.jpg",
+      "https://png.pngtree.com/png-clipart/20201011/ourmid/pngtree-personality-avatar-black-women-illustration-elements-png-image_2352544.jpg",
     authId: "lacIHXKcvBgvrT2VJDBwOKnKTc23",
     userId: "2",
     id: "ZXM3hrXMiFPOnTPuxgfx",
@@ -40,12 +46,11 @@ export const initialContacts = [
     userName: "Ksu Susu",
     messageId: 1661260483924,
     userAvatar:
-      "https://meragor.com/files/styles//220_220_bottom_wm/avatar-230929-054052.png",
-    id: "xrtv4aBDF3dy86iS2Pje",
+      "https://img2.freepng.ru/20180513/toq/kisspng-computer-icons-ninja-smiley-download-5af9061f06e9d2.7499462915262694710283.jpg",
   },
   {
     userAvatar:
-      "https:/meragor.com/files/styles/220_220_bottom_wm/avatar-230333-britanki2.jpg",
+      "https://img2.freepng.ru/20180512/gyw/kisspng-ninja-computer-icons-5af6a9b1082202.2392728715261147370333.jpg",
     messageId: 1661268196628,
     text: "Chuck Norris is the only man alive that can be a badass while riding a moped.",
     mine: false,
@@ -58,8 +63,7 @@ export const initialContacts = [
     id: "eZA4orST2esBv0iqc30o",
   },
   {
-    userAvatar:
-      "https:/meragor.com/files/styles/220_220_bottom_wm/sfztn_girl_avatar_69.jpg",
+    userAvatar: a1,
     mine: true,
     text: " man alive that can be a badass while riding a moped.",
     messageId: 1661268173296,
