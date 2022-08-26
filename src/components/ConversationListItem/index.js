@@ -3,6 +3,7 @@ import shave from "shave";
 import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import { format } from "date-fns";
 import { firestore } from "../../index.js";
+import q from "./face.jpg";
 
 import "./ConversationListItem.css";
 
